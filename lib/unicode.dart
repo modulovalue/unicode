@@ -72,63 +72,63 @@ final Map<int, int> simpleTitlecaseMapping = _generateIntMapping([97, 65, 1, 1, 
 
 final Map<int, int> simpleUppercaseMapping = _generateIntMapping([97, 65, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 59, 834, 43, -732, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 154, 2, -120, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, -229, 2, 233, 2, 2, 2, 2, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 2, 2, 2, 2, 1, -298, 1, 496, 3, -193, 2, 2, 3, 3, 4, 4, 6, 6, 3, 101, 4, -94, 1, 165, 4, -29, 3, -128, 2, 2, 2, 2, 3, 3, 5, 5, 3, 3, 4, 4, 2, 2, 3, 3, 4, 4, 2, 59, 6, -51, 1, 0, 2, 3, 1, 0, 2, 3, 1, 0, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, -77, 2, 80, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 1, 0, 2, 3, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 9, 9, 3, 10819, 1, 1, 2, -10814, 5, 5, 2, 2, 2, 2, 2, 2, 2, 2, 1, 10785, 1, -2, 1, 3, 1, -10991, 1, 5, 2, 3, 1, 1, 2, 5, 2, 1, 1, 42523, 4, -42520, 1, 42521, 2, -42520, 2, 42489, 1, 29, 2, -42515, 1, -1, 2, 10956, 1, 31563, 3, -42513, 2, 10962, 1, -10961, 3, 2, 8, 10949, 3, -10942, 3, 3, 4, 42504, 1, -42499, 1, 150, 1, -147, 1, 1, 1, 147, 6, -142, 12, 42489, 167, -42007, 44, -41, 2, 2, 4, 4, 4, 135, 1, 1, 1, 1, 47, -121, 1, 2, 1, 1, 1, 1, 2, 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -31, 1, 2, 1, 1, 2, 3, 1, 6, 4, 14, 1, -6, 1, 47, 2, 9, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, -84, 1, 7, 1, 88, 1, -122, 2, 22, 3, 98, 3, 3, 53, 22, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -47, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 81, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 10, 10, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, -13, 2, 16, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 50, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6131, 41511, 4, -31514, 132, -3683, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6, -52, 6, 64, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 10, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 9, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 11, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 9, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 9, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 12, 12, 2, 2, 2, 2, 2, 2, 9, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 9, 75, 1, 1, 1, 13, 1, 1, 1, 1, 1, 1, 1, 15, 1, 1, 1, 29, 1, 1, 1, -15, 1, 1, 1, 15, 1, 1, 3, -115, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 9, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 9, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 9, 9, 1, 1, 2, 3, 11, -7203, 5, 7219, 13, 12, 1, 1, 15, 15, 1, 1, 4, 3, 14, 16, 347, 310, 34, 46, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5, 20, 844, 819, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1863, 1841, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 50, 4, -10790, 1, 4, 2, 10793, 2, 2, 2, 2, 7, 7, 3, 3, 11, 11, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 9, 9, 2, 2, 5, 5, 13, -7250, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 6, 6, 30996, 38259, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 20, 20, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 136, 136, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 11, 11, 2, 2, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 5, 5, 5, 5, 2, 2, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 22424, 22393, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1230, 1222, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5233, 5241, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], false);
 
-bool isControl(int character) => controlCharacters[character];  
+bool isControl(int character) => controlCharacters[character];
 
-bool isFormat(int character) => formatCharacters[character];  
+bool isFormat(int character) => formatCharacters[character];
 
-bool isPrivateUse(int character) => privateUseCharacters[character];  
+bool isPrivateUse(int character) => privateUseCharacters[character];
 
-bool isSurrogate(int character) => surrogateCharacters[character];  
+bool isSurrogate(int character) => surrogateCharacters[character];
 
-bool isLowercaseLetter(int character) => lowercaseLetterCharacters[character];  
+bool isLowercaseLetter(int character) => lowercaseLetterCharacters[character];
 
-bool isModifierLetter(int character) => modifierLetterCharacters[character];  
+bool isModifierLetter(int character) => modifierLetterCharacters[character];
 
-bool isOtherLetter(int character) => otherLetterCharacters[character];  
+bool isOtherLetter(int character) => otherLetterCharacters[character];
 
-bool isTitlecaseLetter(int character) => titlecaseLetterCharacters[character];  
+bool isTitlecaseLetter(int character) => titlecaseLetterCharacters[character];
 
-bool isUppercaseLetter(int character) => uppercaseLetterCharacters[character];  
+bool isUppercaseLetter(int character) => uppercaseLetterCharacters[character];
 
-bool isSpacingMark(int character) => spacingMarkCharacters[character];  
+bool isSpacingMark(int character) => spacingMarkCharacters[character];
 
-bool isEncosingMark(int character) => encosingMarkCharacters[character];  
+bool isEncosingMark(int character) => encosingMarkCharacters[character];
 
-bool isNonspacingMark(int character) => nonspacingMarkCharacters[character];  
+bool isNonspacingMark(int character) => nonspacingMarkCharacters[character];
 
-bool isDecimalNumber(int character) => decimalNumberCharacters[character];  
+bool isDecimalNumber(int character) => decimalNumberCharacters[character];
 
-bool isLetterNumber(int character) => letterNumberCharacters[character];  
+bool isLetterNumber(int character) => letterNumberCharacters[character];
 
-bool isOtherNumber(int character) => otherNumberCharacters[character];  
+bool isOtherNumber(int character) => otherNumberCharacters[character];
 
-bool isConnectorPunctuation(int character) => connectorPunctuationCharacters[character];  
+bool isConnectorPunctuation(int character) => connectorPunctuationCharacters[character];
 
-bool isDashPunctuation(int character) => dashPunctuationCharacters[character];  
+bool isDashPunctuation(int character) => dashPunctuationCharacters[character];
 
-bool isClosePunctuation(int character) => closePunctuationCharacters[character];  
+bool isClosePunctuation(int character) => closePunctuationCharacters[character];
 
-bool isFinalPunctuation(int character) => finalPunctuationCharacters[character];  
+bool isFinalPunctuation(int character) => finalPunctuationCharacters[character];
 
-bool isInitialPunctuation(int character) => initialPunctuationCharacters[character];  
+bool isInitialPunctuation(int character) => initialPunctuationCharacters[character];
 
-bool isOtherPunctuation(int character) => otherPunctuationCharacters[character];  
+bool isOtherPunctuation(int character) => otherPunctuationCharacters[character];
 
-bool isOpenPunctuation(int character) => openPunctuationCharacters[character];  
+bool isOpenPunctuation(int character) => openPunctuationCharacters[character];
 
-bool isCurrencySymbol(int character) => currencySymbolCharacters[character];  
+bool isCurrencySymbol(int character) => currencySymbolCharacters[character];
 
-bool isModifierSymbol(int character) => modifierSymbolCharacters[character];  
+bool isModifierSymbol(int character) => modifierSymbolCharacters[character];
 
-bool isMathSymbol(int character) => mathSymbolCharacters[character];  
+bool isMathSymbol(int character) => mathSymbolCharacters[character];
 
-bool isOtherSymbol(int character) => otherSymbolCharacters[character];  
+bool isOtherSymbol(int character) => otherSymbolCharacters[character];
 
-bool isLineSeparator(int character) => lineSeparatorCharacters[character];  
+bool isLineSeparator(int character) => lineSeparatorCharacters[character];
 
-bool isParagraphSeparator(int character) => paragraphSeparatorCharacters[character];  
+bool isParagraphSeparator(int character) => paragraphSeparatorCharacters[character];
 
-bool isSpaceSeparator(int character) => spaceSeparatorCharacters[character];  
+bool isSpaceSeparator(int character) => spaceSeparatorCharacters[character];
 
 String toLowercase(String string) => _toCase(string, simpleLowercaseMapping);
 
@@ -202,7 +202,7 @@ SparseBoolList _generateBoolGroup(List<int> data) {
   for (var i = 0; i < length; i += 2) {
     var start = data[i + 0];
     var end = data[i + 1];
-    list.addGroup(new GroupedRangeList<bool>(start, end, true));    
+    list.addGroup(new GroupedRangeList<bool>(start, end, true));
   }
 
   list.freeze();
@@ -224,7 +224,7 @@ SparseBoolList _generateCategory(int category) {
 
 SparseList<int> _generateIntGroup(List<int> data, bool isCompressed) {
   if (isCompressed) {
-    data = GZIP.decoder.convert(data); 
+    data = GZIP.decoder.convert(data);
   }
   var list = new SparseList<int>(defaultValue: 0);
   list.length = 1114111;
@@ -235,7 +235,7 @@ SparseList<int> _generateIntGroup(List<int> data, bool isCompressed) {
     start += data[i + 0];
     end += data[i + 1];
     var key = data[i + 2];
-    list.addGroup(new GroupedRangeList<int>(start, end, key));    
+    list.addGroup(new GroupedRangeList<int>(start, end, key));
   }
 
   list.freeze();
@@ -244,30 +244,30 @@ SparseList<int> _generateIntGroup(List<int> data, bool isCompressed) {
 
 Map<int, int> _generateIntMapping(List<int> data, bool isCompressed) {
   if (isCompressed) {
-    data = GZIP.decoder.convert(data); 
+    data = GZIP.decoder.convert(data);
   }
   var map = new HashMap<int, int>();
-  var length = data.length;  
+  var length = data.length;
   var key = 0;
   var value = 0;
   for (var i = 0; i < length; i+= 2) {
     key += data[i + 0];
-    value += data[i + 1];    
-    map[key] = value;    
+    value += data[i + 1];
+    map[key] = value;
   }
-  
+
   return new UnmodifiableMapView<int, int>(map);
 }
 
-String _toCase(String string, Map<int, int> mapping) {  
+String _toCase(String string, Map<int, int> mapping) {
   var runes = toRunes(string);
-  for (var i = 0; i < runes.length; i++) {
-    var inputCharacter = runes[i];
-    var outputCharacter = mapping[inputCharacter];
-    if (outputCharacter != null) {
-      runes[i] = outputCharacter;
-    }    
+  var length = runes.length;
+  for (var i = 0; i < length; i++) {
+    var character = mapping[runes[i]];
+    if (character != null) {
+      runes[i] = character;
+    }
   }
-  return new String.fromCharCodes(runes); 
+  return new String.fromCharCodes(runes);
 }
 

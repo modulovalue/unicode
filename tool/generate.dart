@@ -268,11 +268,11 @@ bool is{{NAME}}(int character) => {{CHARACTER_SET}}[character];
   static final String _templateMethodToCase = '''
 String $_TO_CASE(String string, Map<int, int> mapping) {  
   var runes = toRunes(string);
-  for (var i = 0; i < runes.length; i++) {
-    var inputCharacter = runes[i];
-    var outputCharacter = mapping[inputCharacter];
-    if (outputCharacter != null) {
-      runes[i] = outputCharacter;
+  var length = runes.length;
+  for (var i = 0; i < length; i++) {    
+    var character = mapping[runes[i]];
+    if (character != null) {
+      runes[i] = character;
     }    
   }
   return new String.fromCharCodes(runes); 
