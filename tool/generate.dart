@@ -40,13 +40,13 @@ class Categories {
 
   static const Categories LU = const Categories("Lu", "UPPERCASE_LETTER", 9);
 
-  static const Categories MC = const Categories("Mc", "COMBINING_SPACING_MARK", 10);
+  static const Categories MC = const Categories("Mc", "SPACING_MARK", 10);
 
   static const Categories ME = const Categories("Me", "ENCOSING_MARK", 11);
 
-  static const Categories MN = const Categories("Mn", "NON_SPACING_MARK", 12);
+  static const Categories MN = const Categories("Mn", "NONSPACING_MARK", 12);
 
-  static const Categories ND = const Categories("Nd", "DECIMAL_DIGIT_NUMBER", 13);
+  static const Categories ND = const Categories("Nd", "DECIMAL_NUMBER", 13);
 
   static const Categories NL = const Categories("Nl", "LETTER_NUMBER", 14);
 
@@ -56,15 +56,15 @@ class Categories {
 
   static const Categories PD = const Categories("Pd", "DASH_PUNCTUATION", 17);
 
-  static const Categories PE = const Categories("Pe", "END_PUNCTUATION", 18);
+  static const Categories PE = const Categories("Pe", "CLOSE_PUNCTUATION", 18);
 
-  static const Categories PF = const Categories("Pf", "FINAL_QUOTE_PUNCTUATION", 19);
+  static const Categories PF = const Categories("Pf", "FINAL_PUNCTUATION", 19);
 
-  static const Categories PI = const Categories("Pi", "INITIAL_QUOTE_PUNCTUATION", 20);
+  static const Categories PI = const Categories("Pi", "INITIAL_PUNCTUATION", 20);
 
   static const Categories PO = const Categories("Po", "OTHER_PUNCTUATION", 21);
 
-  static const Categories PS = const Categories("Ps", "START_PUNCTUATION", 22);
+  static const Categories PS = const Categories("Ps", "OPEN_PUNCTUATION", 22);
 
   static const Categories SC = const Categories("Sc", "CURRENCY_SYMBOL", 23);
 
@@ -79,6 +79,7 @@ class Categories {
   static const Categories ZP = const Categories("Zp", "PARAGRAPH_SEPARATOR", 28);
 
   static const Categories ZS = const Categories("Zs", "SPACE_SEPARATOR", 29);
+
   final int id;
 
   final String abbr;
@@ -157,13 +158,25 @@ class Generator {
 
   static const String _CATEGORIES = "_categories";
 
-  static const String _GENERATE_BOOL = "_generateBool";
+  static const String _GENERATE_BOOL_GROUP = "_generateBoolGroup";
 
   static const String _GENERATE_CATEGORY = "_generateCategory";
 
-  static const String _GENERATE_INT = "_generateInt";
+  static const String _GENERATE_INT_GROUP = "_generateIntGroup";
+
+  static const String _GENERATE_INT_MAPPING = "_generateIntMapping";
+
+  static const String _LOWERCASE = "lowercase";
+
+  static const String _TITLECASE = "titlecase";
+
+  static const String _TO_CASE = "_toCase";
 
   static const String _TO_RUNE = "toRune";
+
+  static const String _TO_RUNES = "toRunes";
+
+  static const String _UPPERCASE = "uppercase";
 
   static final String _templateLibrary = '''
 // This library was created by the tool.
@@ -176,8 +189,8 @@ library {{NAME}};
 {{#METHODS}}
 ''';
 
-  static final String _templateMethodGenerateBool = '''
-SparseBoolList $_GENERATE_BOOL(List<int> data) {
+  static final String _templateMethodGenerateBoolGroup = '''
+SparseBoolList $_GENERATE_BOOL_GROUP(List<int> data) {
   var list = new SparseBoolList();
   list.length = $MAX_VALUE;
   var length = data.length;
@@ -207,8 +220,8 @@ SparseBoolList $_GENERATE_CATEGORY(int category) {
 }
 ''';
 
-  static final String _templateMethodGenerateInt = '''
-SparseList<int> $_GENERATE_INT(List<int> data, bool isCompressed) {
+  static final String _templateMethodGenerateIntGroup = '''
+SparseList<int> $_GENERATE_INT_GROUP(List<int> data, bool isCompressed) {
   if (isCompressed) {
     data = GZIP.decoder.convert(data); 
   }
@@ -229,8 +242,43 @@ SparseList<int> $_GENERATE_INT(List<int> data, bool isCompressed) {
 }
 ''';
 
+  static final String _templateMethodGenerateIntMapping = '''
+Map<int, int> $_GENERATE_INT_MAPPING(List<int> data, bool isCompressed) {
+  if (isCompressed) {
+    data = GZIP.decoder.convert(data); 
+  }
+  var map = new HashMap<int, int>();
+  var length = data.length;  
+  var key = 0;
+  var value = 0;
+  for (var i = 0; i < length; i+= 2) {
+    key += data[i + 0];
+    value += data[i + 1];    
+    map[key] = value;    
+  }
+  
+  return new UnmodifiableMapView<int, int>(map);
+}
+''';
+
   static final String _templateMethodIsCategory = '''
 bool is{{NAME}}(int character) => {{CHARACTER_SET}}[character];  
+''';
+
+  static final String _templateMethodToCase = '''
+String $_TO_CASE(String string, Map<int, int> mapping) {  
+  var input = toRunes(string);
+  var output = new List(input.length);
+  for (var i = 0; i < input.length; i++) {
+    var inputCharacter = input[i];
+    var outputCharacter = mapping[inputCharacter];    
+    if (outputCharacter == null) {
+      outputCharacter = inputCharacter; 
+    }
+    output[i] = outputCharacter;    
+  }
+  return new String.fromCharCodes(output); 
+}
 ''';
 
   static final String _templateMethodToRune = '''
@@ -260,17 +308,63 @@ int $_TO_RUNE(String string) {
 }
 ''';
 
+  static final String _templateMethodToRunes = '''
+List<int> $_TO_RUNES(String string) {
+  if (string == null) {
+    throw new ArgumentError("string: \$string");
+  }
+
+  var length = string.length;
+  if (length == 0) {
+    return const <int>[];
+  }
+
+  var runes = <int>[];
+  runes.length = length;
+  var i = 0;
+  var pos = 0;
+  for ( ; i < length; pos++) {
+    var start = string.codeUnitAt(i);
+    i++;
+    if ((start & 0xFC00) == 0xD800 && i < length) {
+      var end = string.codeUnitAt(i);
+      if ((end & 0xFC00) == 0xDC00) {
+        runes[pos] = (0x10000 + ((start & 0x3FF) << 10) + (end & 0x3FF));
+        i++;
+      } else {
+        runes[pos] = start;
+      }
+    } else {
+      runes[pos] = start;
+    }
+  }
+
+  runes.length = pos;
+  return runes;
+}
+''';
+
+  static final String _templateMethodToXxxCase = '''
+String {{NAME}}(String string) => $_TO_CASE(string, {{MAPPING}});
+''';
+
   static final String _templateCharacterSet = '''
 final SparseBoolList {{NAME}} = $_GENERATE_CATEGORY({{ID}});
 ''';
 
+  static final String _templateMapping = '''
+final Map<int, int> {{NAME}} = $_GENERATE_INT_MAPPING({{DATA}}, {{IS_COMRESSED}});
+''';
+
   static final String _templateSparseListBool = '''
-final SparseBoolList {{NAME}} = $_GENERATE_BOOL({{DATA}});
+final SparseBoolList {{NAME}} = $_GENERATE_BOOL_GROUP({{DATA}});
 ''';
 
   static final String _templateSparseListInt = '''
-final SparseList<int> {{NAME}} = $_GENERATE_INT({{DATA}}, {{IS_COMRESSED}});
+final SparseList<int> {{NAME}} = $_GENERATE_INT_GROUP({{DATA}}, {{IS_COMRESSED}});
 ''';
+
+  bool _bugInDartGzip;
 
   SparseList<int> _characters;
 
@@ -278,9 +372,12 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT({{DATA}}, {{IS_COMRESSED}});
 
   List<List<String>> _methods;
 
+  Map<String, Map<int, int>> _caseMapping;
+
   List<List<String>> _variables;
 
   List<String> generate(Map<String, List<String>> data) {
+    _caseMapping = <String, Map<int, int>>{};
     _characters = new SparseList<int>(defaultValue: 0);
     _categories = <Categories, SparseBoolList>{};
     _methods = <List<String>>[];
@@ -293,6 +390,9 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT({{DATA}}, {{IS_COMRESSED}});
   }
 
   void _build(List<Character> characters) {
+    _caseMapping[_LOWERCASE] = <int, int>{};
+    _caseMapping[_TITLECASE] = <int, int>{};
+    _caseMapping[_UPPERCASE] = <int, int>{};
     var length = characters.length;
     for (var category in Categories.values.values) {
       var list = new SparseBoolList();
@@ -305,13 +405,28 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT({{DATA}}, {{IS_COMRESSED}});
       if (character == null) {
         continue;
       }
-
+      var code = character.code;
       var category = Categories.values[character.category];
       if (category == null) {
         throw new StateError("Unknown character category: ${character.category}");
       }
 
       _categories[category][character.code] = true;
+      // Case mapping
+      var lowercase = character.lowercase;
+      var titlecase = character.titlecase;
+      var uppercase = character.uppercase;
+      if (lowercase != null) {
+        _caseMapping[_LOWERCASE][code] = lowercase;
+      }
+
+      if (titlecase != null) {
+        _caseMapping[_TITLECASE][code] = titlecase;
+      }
+
+      if (uppercase != null) {
+        _caseMapping[_UPPERCASE][code] = uppercase;
+      }
     }
 
     for (var category in _categories.keys) {
@@ -323,9 +438,81 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT({{DATA}}, {{IS_COMRESSED}});
     }
   }
 
+  List<int> _compressGroups(List<int> groups) {
+    var data = <int>[];
+    var deltaStart = 0;
+    var deltaEnd = 0;
+    var start = 0;
+    var end = 0;
+    // Compression phase #1
+    for (var i = 0; i < groups.length; i += 3) {
+      deltaStart = groups[i] - start;
+      deltaEnd = groups[i + 1] - end;
+      start = start + deltaStart;
+      end = end + deltaEnd;
+      data.add(deltaStart);
+      data.add(deltaEnd);
+      data.add(groups[i + 2]);
+    }
+
+    // Compression phase #2
+    var compressed = GZIP.encoder.convert(data);
+    var uncompressed = GZIP.decoder.convert(compressed);
+    var length = data.length;
+    _bugInDartGzip = false;
+    for (var i = 0; i < length; i++) {
+      if (data[i] != uncompressed[i]) {
+        _bugInDartGzip = true;
+        break;
+      }
+    }
+
+    if (_bugInDartGzip) {
+      compressed = data;
+    }
+
+    return compressed;
+  }
+
+  List<int> _compressMapping(List<int> mapping) {
+    var data = <int>[];
+    var deltaKey = 0;
+    var deltaValue = 0;
+    var key = 0;
+    var value = 0;
+    // Compression phase #1
+    for (var i = 0; i < mapping.length; i += 2) {
+      deltaKey = mapping[i] - key;
+      deltaValue = mapping[i + 1] - value;
+      key = key + deltaKey;
+      value = value + deltaValue;
+      data.add(deltaKey);
+      data.add(deltaValue);
+    }
+
+    // Compression phase #2
+    var compressed = GZIP.encoder.convert(data);
+    var uncompressed = GZIP.decoder.convert(compressed);
+    var length = data.length;
+    _bugInDartGzip = false;
+    for (var i = 0; i < length; i++) {
+      if (data[i] != uncompressed[i]) {
+        _bugInDartGzip = true;
+        break;
+      }
+    }
+
+    if (_bugInDartGzip) {
+      compressed = data;
+    }
+
+    return compressed;
+  }
+
   List<String> _generateLibrary(String name) {
     var block = new TemplateBlock(_templateLibrary);
     block.assign("NAME", name);
+    block.assign("#DIRECTIVES", "import \"dart:collection\";");
     block.assign("#DIRECTIVES", "import \"dart:io\";");
     block.assign("#DIRECTIVES", "import \"package:lists/lists.dart\";\n");
     block.assign("#METHODS", _methods);
@@ -333,8 +520,8 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT({{DATA}}, {{IS_COMRESSED}});
     return block.process();
   }
 
-  void _generateMethodGenerateBool() {
-    var block = new TemplateBlock(_templateMethodGenerateBool);
+  void _generateMethodGenerateBoolGroup() {
+    var block = new TemplateBlock(_templateMethodGenerateBoolGroup);
     _methods.add(block.process());
   }
 
@@ -343,17 +530,26 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT({{DATA}}, {{IS_COMRESSED}});
     _methods.add(block.process());
   }
 
-  void _generateMethodGenerateInt() {
-    var block = new TemplateBlock(_templateMethodGenerateInt);
+  void _generateMethodGenerateIntGroup() {
+    var block = new TemplateBlock(_templateMethodGenerateIntGroup);
+    _methods.add(block.process());
+  }
+
+  void _generateMethodGenerateIntMapping() {
+    var block = new TemplateBlock(_templateMethodGenerateIntMapping);
     _methods.add(block.process());
   }
 
   void _generateMethods() {
     _generateMethodIsCategory();
+    _generateMethodToXxxCase();
     _generateMethodToRune();
-    _generateMethodGenerateBool();
+    _generateMethodToRunes();
+    _generateMethodGenerateBoolGroup();
     _generateMethodGenerateCategory();
-    _generateMethodGenerateInt();
+    _generateMethodGenerateIntGroup();
+    _generateMethodGenerateIntMapping();
+    _generateMethodToCase();
   }
 
   void _generateMethodIsCategory() {
@@ -368,46 +564,45 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT({{DATA}}, {{IS_COMRESSED}});
     }
   }
 
+  void _generateMethodToCase() {
+    var block = new TemplateBlock(_templateMethodToCase);
+    _methods.add(block.process());
+  }
+
   void _generateMethodToRune() {
     var block = new TemplateBlock(_templateMethodToRune);
     _methods.add(block.process());
   }
 
+  void _generateMethodToRunes() {
+    var block = new TemplateBlock(_templateMethodToRunes);
+    _methods.add(block.process());
+  }
+
+  void _generateMethodToXxxCase() {
+    var block = new TemplateBlock(_templateMethodToXxxCase);
+    for (var key in _caseMapping.keys) {
+      var mapping = _getSimpleCaseMappingName(key);
+      var block1 = block.clone();
+      var name = "to_${key}";
+      name = camelize(name, true);
+      block1.assign("NAME", name);
+      block1.assign("MAPPING", mapping);
+      _methods.add(block1.process());
+    }
+  }
+
   void _generateVariableCategories() {
     var block = new TemplateBlock(_templateSparseListInt);
-    var start = 0;
-    var end = 0;
-    var deltaStart = 0;
-    var deltaEnd = 0;
     var data = <int>[];
-    // Compression phase #1
     for (var group in _characters.groups) {
-      deltaStart = group.start - start;
-      deltaEnd = group.end - end;
-      start = start + deltaStart;
-      end = end + deltaEnd;
-      data.add(deltaStart);
-      data.add(deltaEnd);
+      data.add(group.start);
+      data.add(group.end);
       data.add(group.key);
     }
 
-    // Compression phase #2
-    var compressed = GZIP.encoder.convert(data);
-    var uncompressed = GZIP.decoder.convert(compressed);
-    var length = data.length;
-    var bugInDartGzip = false;
-    for (var i = 0; i < length; i++) {
-      if (data[i] != uncompressed[i]) {
-        bugInDartGzip = true;
-        break;
-      }
-    }
-
-    if (bugInDartGzip) {
-      compressed = data;
-    }
-
-    block.assign("IS_COMRESSED", !bugInDartGzip);
+    var compressed = _compressGroups(data);
+    block.assign("IS_COMRESSED", !_bugInDartGzip);
     block.assign("DATA", "[${compressed.join(", ")}]");
     block.assign("NAME", _CATEGORIES);
     _variables.add(block.process());
@@ -416,6 +611,7 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT({{DATA}}, {{IS_COMRESSED}});
   void _generateVariables() {
     _generateVariableCategories();
     _generateVariableCharacterSet();
+    _generateVariableSimpleCaseMapping();
   }
 
   void _generateVariableCharacterSet() {
@@ -428,9 +624,34 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT({{DATA}}, {{IS_COMRESSED}});
     }
   }
 
+  void _generateVariableSimpleCaseMapping() {
+    var block = new TemplateBlock(_templateMapping);
+    for (var name in _caseMapping.keys) {
+      var data = <int>[];
+      var map = _caseMapping[name];
+      for (var key in map.keys) {
+        data.add(key);
+        data.add(map[key]);
+      }
+
+      var compressed = _compressMapping(data);
+      var block1 = block.clone();
+      block1.assign("IS_COMRESSED", !_bugInDartGzip);
+      block1.assign("DATA", "[${compressed.join(", ")}]");
+      block1.assign("NAME", _getSimpleCaseMappingName(name));
+      _variables.add(block1.process());
+    }
+  }
+
   String _getCharacterSetName(Categories category) {
     var name = category.name;
     name = "${category.name}_Characters";
+    name = camelize(name, true);
+    return name;
+  }
+
+  String _getSimpleCaseMappingName(String name) {
+    name = "simple_${name}_mapping";
     name = camelize(name, true);
     return name;
   }
@@ -455,25 +676,25 @@ class Character {
 
   String category;
 
-  int lowerCase0;
+  int uppercase;
 
-  int lowerCase1;
+  int titlecase;
 
-  int upperCase0;
+  int lowercase;
 
   Character(this.data) {
     code = int.parse(data[0], radix: 16);
     category = data[2];
     if (!data[12].isEmpty) {
-      lowerCase0 = int.parse(data[12], radix: 16);
+      uppercase = int.parse(data[12], radix: 16);
     }
 
     if (!data[13].isEmpty) {
-      upperCase0 = int.parse(data[13], radix: 16);
+      lowercase = int.parse(data[13], radix: 16);
     }
 
     if (!data[14].isEmpty) {
-      lowerCase1 = int.parse(data[14], radix: 16);
+      titlecase = int.parse(data[14], radix: 16);
     }
   }
 }
