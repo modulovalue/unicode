@@ -22,6 +22,8 @@ void main() {
 }
 
 class Categories {
+  static const Categories CN = const Categories("Cn", "NOT_ASSIGNED", 0);
+
   static const Categories CC = const Categories("Cc", "CONTROL", 1);
 
   static const Categories CF = const Categories("Cf", "FORMAT", 2);
@@ -89,6 +91,8 @@ class Categories {
   const Categories(this.abbr, this.name, this.id);
 
   static final Map<String, Categories> values = <String, Categories>{
+    CN.abbr: CN,
+
     CC.abbr: CC,
 
     CF.abbr: CF,
@@ -368,6 +372,8 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT_GROUP({{DATA}}, {{IS_COMRESSED}}
 
   Map<Categories, SparseBoolList> _categories;
 
+  List<List<String>> _constants;
+
   List<List<String>> _methods;
 
   Map<String, Map<int, int>> _caseMapping;
@@ -378,10 +384,12 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT_GROUP({{DATA}}, {{IS_COMRESSED}}
     _caseMapping = <String, Map<int, int>>{};
     _characters = new SparseList<int>(defaultValue: 0);
     _categories = <Categories, SparseBoolList>{};
+    _constants = <List<String>>[];
     _methods = <List<String>>[];
     _variables = <List<String>>[];
     var characters = _parseUnicodeData(data[Generator.UNICODE_DATA]);
     _build(characters);
+    _generateConstants();
     _generateVariables();
     _generateMethods();
     return _generateLibrary("unicode");
@@ -507,12 +515,26 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT_GROUP({{DATA}}, {{IS_COMRESSED}}
     return compressed;
   }
 
+  void _generateConstants() {
+    var strings = <String>[];
+    for (var category in Categories.values.values) {
+      var name = category.name;
+      var id = category.id;
+      strings.add("const int $name = $id;");
+    }
+
+    strings.add("");
+    _constants.add(strings);
+  }
+
   List<String> _generateLibrary(String name) {
     var block = new TemplateBlock(_templateLibrary);
     block.assign("NAME", name);
     block.assign("#DIRECTIVES", "import \"dart:collection\";");
     block.assign("#DIRECTIVES", "import \"dart:io\";");
-    block.assign("#DIRECTIVES", "import \"package:lists/lists.dart\";\n");
+    block.assign("#DIRECTIVES", "import \"package:lists/lists.dart\";");
+    block.assign("#DIRECTIVES", "");
+    block.assign("#CONSTANTS", _constants);
     block.assign("#METHODS", _methods);
     block.assign("#VARIABLES", _variables);
     return block.process();

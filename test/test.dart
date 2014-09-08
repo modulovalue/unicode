@@ -96,7 +96,7 @@ void testUnassigned() {
   // Unassigned
   var subject = "generalCategories";
   var result = unicode.generalCategories[0x378];
-  expect(result, 0, reason: subject);
+  expect(result, unicode.NOT_ASSIGNED, reason: subject);
 }
 
 void measure(String msg, f()) {
