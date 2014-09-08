@@ -15,45 +15,45 @@ final SparseBoolList privateUseCharacters = _generateCategory(3);
 
 final SparseBoolList surrogateCharacters = _generateCategory(4);
 
-final SparseBoolList lowerCaseLetterCharacters = _generateCategory(5);
+final SparseBoolList lowercaseLetterCharacters = _generateCategory(5);
 
-final SparseBoolList letterModifierCharacters = _generateCategory(6);
+final SparseBoolList modifierLetterCharacters = _generateCategory(6);
 
 final SparseBoolList otherLetterCharacters = _generateCategory(7);
 
 final SparseBoolList titlecaseLetterCharacters = _generateCategory(8);
 
-final SparseBoolList upperCaseLetterCharacters = _generateCategory(9);
+final SparseBoolList uppercaseLetterCharacters = _generateCategory(9);
 
-final SparseBoolList combiningMarkCharacters = _generateCategory(10);
+final SparseBoolList combiningSpacingMarkCharacters = _generateCategory(10);
 
-final SparseBoolList encodingMarkCharacters = _generateCategory(11);
+final SparseBoolList encosingMarkCharacters = _generateCategory(11);
 
-final SparseBoolList nonspacingMarkCharacters = _generateCategory(12);
+final SparseBoolList nonSpacingMarkCharacters = _generateCategory(12);
 
-final SparseBoolList decimalNumberCharacters = _generateCategory(13);
+final SparseBoolList decimalDigitNumberCharacters = _generateCategory(13);
 
 final SparseBoolList letterNumberCharacters = _generateCategory(14);
 
 final SparseBoolList otherNumberCharacters = _generateCategory(15);
 
-final SparseBoolList punctuationConnectorCharacters = _generateCategory(16);
+final SparseBoolList connectorPunctuationCharacters = _generateCategory(16);
 
 final SparseBoolList dashPunctuationCharacters = _generateCategory(17);
 
-final SparseBoolList closePunctuationCharacters = _generateCategory(18);
+final SparseBoolList endPunctuationCharacters = _generateCategory(18);
 
-final SparseBoolList finalPunctuationCharacters = _generateCategory(19);
+final SparseBoolList finalQuotePunctuationCharacters = _generateCategory(19);
 
-final SparseBoolList initialPunctuationCharacters = _generateCategory(20);
+final SparseBoolList initialQuotePunctuationCharacters = _generateCategory(20);
 
 final SparseBoolList otherPunctuationCharacters = _generateCategory(21);
 
-final SparseBoolList openPunctuationCharacters = _generateCategory(22);
+final SparseBoolList startPunctuationCharacters = _generateCategory(22);
 
 final SparseBoolList currencySymbolCharacters = _generateCategory(23);
 
-final SparseBoolList symbolModifierCharacters = _generateCategory(24);
+final SparseBoolList modifierSymbolCharacters = _generateCategory(24);
 
 final SparseBoolList mathSymbolCharacters = _generateCategory(25);
 
@@ -65,63 +65,63 @@ final SparseBoolList paragraphSeparatorCharacters = _generateCategory(28);
 
 final SparseBoolList spaceSeparatorCharacters = _generateCategory(29);
 
-bool isControl(int character) => controlCharacters[character];
+bool isControl(int character) => controlCharacters[character];  
 
-bool isFormat(int character) => formatCharacters[character];
+bool isFormat(int character) => formatCharacters[character];  
 
-bool isPrivateUse(int character) => privateUseCharacters[character];
+bool isPrivateUse(int character) => privateUseCharacters[character];  
 
-bool isSurrogate(int character) => surrogateCharacters[character];
+bool isSurrogate(int character) => surrogateCharacters[character];  
 
-bool isLowerCaseLetter(int character) => lowerCaseLetterCharacters[character];
+bool isLowercaseLetter(int character) => lowercaseLetterCharacters[character];  
 
-bool isLetterModifier(int character) => letterModifierCharacters[character];
+bool isModifierLetter(int character) => modifierLetterCharacters[character];  
 
-bool isOtherLetter(int character) => otherLetterCharacters[character];
+bool isOtherLetter(int character) => otherLetterCharacters[character];  
 
-bool isTitlecaseLetter(int character) => titlecaseLetterCharacters[character];
+bool isTitlecaseLetter(int character) => titlecaseLetterCharacters[character];  
 
-bool isUpperCaseLetter(int character) => upperCaseLetterCharacters[character];
+bool isUppercaseLetter(int character) => uppercaseLetterCharacters[character];  
 
-bool isCombiningMark(int character) => combiningMarkCharacters[character];
+bool isCombiningSpacingMark(int character) => combiningSpacingMarkCharacters[character];  
 
-bool isEncodingMark(int character) => encodingMarkCharacters[character];
+bool isEncosingMark(int character) => encosingMarkCharacters[character];  
 
-bool isNonspacingMark(int character) => nonspacingMarkCharacters[character];
+bool isNonSpacingMark(int character) => nonSpacingMarkCharacters[character];  
 
-bool isDecimalNumber(int character) => decimalNumberCharacters[character];
+bool isDecimalDigitNumber(int character) => decimalDigitNumberCharacters[character];  
 
-bool isLetterNumber(int character) => letterNumberCharacters[character];
+bool isLetterNumber(int character) => letterNumberCharacters[character];  
 
-bool isOtherNumber(int character) => otherNumberCharacters[character];
+bool isOtherNumber(int character) => otherNumberCharacters[character];  
 
-bool isPunctuationConnector(int character) => punctuationConnectorCharacters[character];
+bool isConnectorPunctuation(int character) => connectorPunctuationCharacters[character];  
 
-bool isDashPunctuation(int character) => dashPunctuationCharacters[character];
+bool isDashPunctuation(int character) => dashPunctuationCharacters[character];  
 
-bool isClosePunctuation(int character) => closePunctuationCharacters[character];
+bool isEndPunctuation(int character) => endPunctuationCharacters[character];  
 
-bool isFinalPunctuation(int character) => finalPunctuationCharacters[character];
+bool isFinalQuotePunctuation(int character) => finalQuotePunctuationCharacters[character];  
 
-bool isInitialPunctuation(int character) => initialPunctuationCharacters[character];
+bool isInitialQuotePunctuation(int character) => initialQuotePunctuationCharacters[character];  
 
-bool isOtherPunctuation(int character) => otherPunctuationCharacters[character];
+bool isOtherPunctuation(int character) => otherPunctuationCharacters[character];  
 
-bool isOpenPunctuation(int character) => openPunctuationCharacters[character];
+bool isStartPunctuation(int character) => startPunctuationCharacters[character];  
 
-bool isCurrencySymbol(int character) => currencySymbolCharacters[character];
+bool isCurrencySymbol(int character) => currencySymbolCharacters[character];  
 
-bool isSymbolModifier(int character) => symbolModifierCharacters[character];
+bool isModifierSymbol(int character) => modifierSymbolCharacters[character];  
 
-bool isMathSymbol(int character) => mathSymbolCharacters[character];
+bool isMathSymbol(int character) => mathSymbolCharacters[character];  
 
-bool isOtherSymbol(int character) => otherSymbolCharacters[character];
+bool isOtherSymbol(int character) => otherSymbolCharacters[character];  
 
-bool isLineSeparator(int character) => lineSeparatorCharacters[character];
+bool isLineSeparator(int character) => lineSeparatorCharacters[character];  
 
-bool isParagraphSeparator(int character) => paragraphSeparatorCharacters[character];
+bool isParagraphSeparator(int character) => paragraphSeparatorCharacters[character];  
 
-bool isSpaceSeparator(int character) => spaceSeparatorCharacters[character];
+bool isSpaceSeparator(int character) => spaceSeparatorCharacters[character];  
 
 int toRune(String string) {
   if (string == null) {
@@ -155,7 +155,7 @@ SparseBoolList _generateBool(List<int> data) {
   for (var i = 0; i < length; i += 2) {
     var start = data[i + 0];
     var end = data[i + 1];
-    list.addGroup(new GroupedRangeList<bool>(start, end, true));
+    list.addGroup(new GroupedRangeList<bool>(start, end, true));    
   }
 
   list.freeze();
@@ -177,7 +177,7 @@ SparseBoolList _generateCategory(int category) {
 
 SparseList<int> _generateInt(List<int> data, bool isCompressed) {
   if (isCompressed) {
-    data = GZIP.decoder.convert(data);
+    data = GZIP.decoder.convert(data); 
   }
   var list = new SparseList<int>(defaultValue: 0);
   list.length = 1114111;
@@ -188,7 +188,7 @@ SparseList<int> _generateInt(List<int> data, bool isCompressed) {
     start += data[i + 0];
     end += data[i + 1];
     var key = data[i + 2];
-    list.addGroup(new GroupedRangeList<int>(start, end, key));
+    list.addGroup(new GroupedRangeList<int>(start, end, key));    
   }
 
   list.freeze();

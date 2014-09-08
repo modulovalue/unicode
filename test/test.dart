@@ -8,31 +8,31 @@ void main() {
 
 void testCharacterSets() {
   //
-  var subject = "upperCaseLetterCharacters";
+  var subject = "uppercaseLetterCharacters";
   var character = 65; // A
-  var result = unicode.upperCaseLetterCharacters[character];
+  var result = unicode.uppercaseLetterCharacters[character];
   expect(result, true, reason: subject);
 }
 
 void testIsXXX() {
   //
-  var subject = "isUpperCaseLetter";
+  var subject = "isUppercaseLetter";
   var character = 65; // A
-  var result = unicode.isUpperCaseLetter(character);
+  var result = unicode.isUppercaseLetter(character);
   expect(result, true, reason: subject);
   //
-  subject = "isUpperCaseLetter";
+  subject = "isUppercaseLetter";
   character = unicode.toRune("Я"); // Я
-  result = unicode.isUpperCaseLetter(character);
+  result = unicode.isUppercaseLetter(character);
   expect(result, true, reason: subject);
   //
-  subject = "isLowerCaseLetter";
+  subject = "isLowercaseLetter";
   character = 97; // a
-  result = unicode.isLowerCaseLetter(character);
+  result = unicode.isLowercaseLetter(character);
   expect(result, true, reason: subject);
   //
-  subject = "isLowerCaseLetter";
+  subject = "isLowercaseLetter";
   character = unicode.toRune("я"); // я
-  result = unicode.isLowerCaseLetter(character);
+  result = unicode.isLowercaseLetter(character);
   expect(result, true, reason: subject);
 }

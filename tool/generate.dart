@@ -9,7 +9,7 @@ import "package:template_block/template_block.dart";
 
 void main() {
   var resources = <String, Resource>{};
-  resources[Generator.UNICODE_DATA] = new Resource(filename: "UnicodeData2.txt", url: "http://www.unicode.org/Public/UNIDATA/UnicodeData.txt");
+  resources[Generator.UNICODE_DATA] = new Resource(filename: "UnicodeData.txt", url: "http://www.unicode.org/Public/UNIDATA/UnicodeData.txt");
   Future.wait(resources.values.map((r) => r.load())).then((_) {
     var generator = new Generator();
     var data = <String, List<String>>{};
@@ -30,45 +30,45 @@ class Categories {
 
   static const Categories CS = const Categories("Cs", "SURROGATE", 4);
 
-  static const Categories LL = const Categories("Ll", "LOWER_CASE_LETTER", 5);
+  static const Categories LL = const Categories("Ll", "LOWERCASE_LETTER", 5);
 
-  static const Categories LM = const Categories("Lm", "LETTER_MODIFIER", 6);
+  static const Categories LM = const Categories("Lm", "MODIFIER_LETTER", 6);
 
   static const Categories LO = const Categories("Lo", "OTHER_LETTER", 7);
 
   static const Categories LT = const Categories("Lt", "TITLECASE_LETTER", 8);
 
-  static const Categories LU = const Categories("Lu", "UPPER_CASE_LETTER", 9);
+  static const Categories LU = const Categories("Lu", "UPPERCASE_LETTER", 9);
 
-  static const Categories MC = const Categories("Mc", "COMBINING_MARK", 10);
+  static const Categories MC = const Categories("Mc", "COMBINING_SPACING_MARK", 10);
 
-  static const Categories ME = const Categories("Me", "ENCODING_MARK", 11);
+  static const Categories ME = const Categories("Me", "ENCOSING_MARK", 11);
 
-  static const Categories MN = const Categories("Mn", "NONSPACING_MARK", 12);
+  static const Categories MN = const Categories("Mn", "NON_SPACING_MARK", 12);
 
-  static const Categories ND = const Categories("Nd", "DECIMAL_NUMBER", 13);
+  static const Categories ND = const Categories("Nd", "DECIMAL_DIGIT_NUMBER", 13);
 
   static const Categories NL = const Categories("Nl", "LETTER_NUMBER", 14);
 
   static const Categories NO = const Categories("No", "OTHER_NUMBER", 15);
 
-  static const Categories PC = const Categories("Pc", "PUNCTUATION_CONNECTOR", 16);
+  static const Categories PC = const Categories("Pc", "CONNECTOR_PUNCTUATION", 16);
 
   static const Categories PD = const Categories("Pd", "DASH_PUNCTUATION", 17);
 
-  static const Categories PE = const Categories("Pe", "CLOSE_PUNCTUATION", 18);
+  static const Categories PE = const Categories("Pe", "END_PUNCTUATION", 18);
 
-  static const Categories PF = const Categories("Pf", "FINAL_PUNCTUATION", 19);
+  static const Categories PF = const Categories("Pf", "FINAL_QUOTE_PUNCTUATION", 19);
 
-  static const Categories PI = const Categories("Pi", "INITIAL_PUNCTUATION", 20);
+  static const Categories PI = const Categories("Pi", "INITIAL_QUOTE_PUNCTUATION", 20);
 
   static const Categories PO = const Categories("Po", "OTHER_PUNCTUATION", 21);
 
-  static const Categories PS = const Categories("Ps", "OPEN_PUNCTUATION", 22);
+  static const Categories PS = const Categories("Ps", "START_PUNCTUATION", 22);
 
   static const Categories SC = const Categories("Sc", "CURRENCY_SYMBOL", 23);
 
-  static const Categories SK = const Categories("Sk", "SYMBOL_MODIFIER", 24);
+  static const Categories SK = const Categories("Sk", "MODIFIER_SYMBOL", 24);
 
   static const Categories SM = const Categories("Sm", "MATH_SYMBOL", 25);
 
