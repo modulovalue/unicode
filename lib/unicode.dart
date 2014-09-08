@@ -260,16 +260,14 @@ Map<int, int> _generateIntMapping(List<int> data, bool isCompressed) {
 }
 
 String _toCase(String string, Map<int, int> mapping) {  
-  var input = toRunes(string);
-  var output = new List(input.length);
-  for (var i = 0; i < input.length; i++) {
-    var inputCharacter = input[i];
-    var outputCharacter = mapping[inputCharacter];    
-    if (outputCharacter == null) {
-      outputCharacter = inputCharacter; 
-    }
-    output[i] = outputCharacter;    
+  var runes = toRunes(string);
+  for (var i = 0; i < runes.length; i++) {
+    var inputCharacter = runes[i];
+    var outputCharacter = mapping[inputCharacter];
+    if (outputCharacter != null) {
+      runes[i] = outputCharacter;
+    }    
   }
-  return new String.fromCharCodes(output); 
+  return new String.fromCharCodes(runes); 
 }
 
