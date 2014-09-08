@@ -6,6 +6,7 @@ void main() {
   testIsXXX();
   testSimpleCasing();
   testToCase();
+  testUnassigned();
 }
 
 void testCharacterSets() {
@@ -89,6 +90,13 @@ void testToCase() {
       var result = unicode.toLowercase(string);
     }
   });
+}
+
+void testUnassigned() {
+  // Unassigned
+  var subject = "generalCategories";
+  var result = unicode.generalCategories[0x378];
+  expect(result, 0, reason: subject);
 }
 
 void measure(String msg, f()) {

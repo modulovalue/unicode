@@ -156,7 +156,7 @@ class Generator {
 
   static const String UNICODE_DATA = "UNICODE_DATA";
 
-  static const String _CATEGORIES = "_categories";
+  static const String _GENERAL_CATEGORIES = "generalCategories";
 
   static const String _GENERATE_BOOL_GROUP = "_generateBoolGroup";
 
@@ -209,7 +209,7 @@ SparseBoolList $_GENERATE_BOOL_GROUP(List<int> data) {
 SparseBoolList $_GENERATE_CATEGORY(int category) {
   var list = new SparseBoolList();
   list.length = $MAX_VALUE;
-  for (var group in $_CATEGORIES.groups) {
+  for (var group in $_GENERAL_CATEGORIES.groups) {
     if (group.key == category) {
       list.addGroup(new GroupedRangeList<bool>(group.start, group.end, true));
     }
@@ -602,7 +602,7 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT_GROUP({{DATA}}, {{IS_COMRESSED}}
     var compressed = _compressGroups(data);
     block.assign("IS_COMRESSED", !_bugInDartGzip);
     block.assign("DATA", "[${compressed.join(", ")}]");
-    block.assign("NAME", _CATEGORIES);
+    block.assign("NAME", _GENERAL_CATEGORIES);
     _variables.add(block.process());
   }
 
