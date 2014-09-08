@@ -232,7 +232,7 @@ List<int> toRunes(String string) {
 
 SparseBoolList _generateBoolGroup(List<int> data) {
   var list = new SparseBoolList();
-  list.length = 1114111;
+  list.length = 1114112;
   var length = data.length;
   for (var i = 0; i < length; i += 2) {
     var start = data[i + 0];
@@ -246,7 +246,7 @@ SparseBoolList _generateBoolGroup(List<int> data) {
 
 SparseBoolList _generateCategory(int category) {
   var list = new SparseBoolList();
-  list.length = 1114111;
+  list.length = 1114112;
   for (var group in generalCategories.groups) {
     if (group.key == category) {
       list.addGroup(new GroupedRangeList<bool>(group.start, group.end, true));
@@ -262,7 +262,7 @@ SparseList<int> _generateIntGroup(List<int> data, bool isCompressed) {
     data = GZIP.decoder.convert(data); 
   }
   var list = new SparseList<int>(defaultValue: 0);
-  list.length = 1114111;
+  list.length = 1114112;
   var length = data.length;
   var start = 0;
   var end = 0;

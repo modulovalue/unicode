@@ -158,6 +158,8 @@ class Categories {
 class Generator {
   static const int MAX_VALUE = 0x10ffff;
 
+  static const int UNICODE_LENGTH = MAX_VALUE + 1;
+
   static const String UNICODE_DATA = "UNICODE_DATA";
 
   static const String _GENERAL_CATEGORIES = "generalCategories";
@@ -196,7 +198,7 @@ library {{NAME}};
   static final String _templateMethodGenerateBoolGroup = '''
 SparseBoolList $_GENERATE_BOOL_GROUP(List<int> data) {
   var list = new SparseBoolList();
-  list.length = $MAX_VALUE;
+  list.length = $UNICODE_LENGTH;
   var length = data.length;
   for (var i = 0; i < length; i += 2) {
     var start = data[i + 0];
@@ -212,7 +214,7 @@ SparseBoolList $_GENERATE_BOOL_GROUP(List<int> data) {
   static final String _templateMethodGenerateCategory = '''
 SparseBoolList $_GENERATE_CATEGORY(int category) {
   var list = new SparseBoolList();
-  list.length = $MAX_VALUE;
+  list.length = $UNICODE_LENGTH;
   for (var group in $_GENERAL_CATEGORIES.groups) {
     if (group.key == category) {
       list.addGroup(new GroupedRangeList<bool>(group.start, group.end, true));
@@ -230,7 +232,7 @@ SparseList<int> $_GENERATE_INT_GROUP(List<int> data, bool isCompressed) {
     data = GZIP.decoder.convert(data); 
   }
   var list = new SparseList<int>(defaultValue: 0);
-  list.length = $MAX_VALUE;
+  list.length = $UNICODE_LENGTH;
   var length = data.length;
   var start = 0;
   var end = 0;
@@ -402,7 +404,7 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT_GROUP({{DATA}}, {{IS_COMRESSED}}
     var length = characters.length;
     for (var category in Categories.values.values) {
       var list = new SparseBoolList();
-      list.length = MAX_VALUE + 1;
+      list.length = UNICODE_LENGTH;
       _categories[category] = list;
     }
 
@@ -677,7 +679,7 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT_GROUP({{DATA}}, {{IS_COMRESSED}}
   }
 
   List<Character> _parseUnicodeData(List<String> lines) {
-    var characters = new List(MAX_VALUE + 1);
+    var characters = new List(UNICODE_LENGTH);
     for (var line in lines) {
       var parts = line.split(";");
       var index = int.parse(parts[0], radix: 16);
