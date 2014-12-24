@@ -7,9 +7,15 @@ import "package:lists/lists.dart";
 import "package:strings/strings.dart";
 import "package:template_block/template_block.dart";
 
+const String UNICODE_DATA_FILE = "UnicodeData.txt";
+
+const String UNICODE_DATA_URL = "http://www.unicode.org/Public/UNIDATA/UnicodeData.txt";
+
+const String VERSION = "7.0.0";
+
 void main() {
   var resources = <String, Resource>{};
-  resources[Generator.UNICODE_DATA] = new Resource(filename: "UnicodeData.txt", url: "http://www.unicode.org/Public/UNIDATA/UnicodeData.txt");
+  resources[Generator.UNICODE_DATA] = new Resource(filename: UNICODE_DATA_FILE, url: UNICODE_DATA_URL);
   Future.wait(resources.values.map((r) => r.load())).then((_) {
     var generator = new Generator();
     var data = <String, List<String>>{};
@@ -186,6 +192,8 @@ class Generator {
 
   static final String _templateLibrary = '''
 // This library was created by the tool.
+// Source: $UNICODE_DATA_URL
+// Unicode Version: $VERSION
 
 library {{NAME}};
 
@@ -368,6 +376,9 @@ final SparseBoolList {{NAME}} = $_GENERATE_BOOL_GROUP({{DATA}});
 final SparseList<int> {{NAME}} = $_GENERATE_INT_GROUP({{DATA}}, {{IS_COMRESSED}});
 ''';
 
+  /**
+   * This bug present in Dart VM since 8 Sep 2014
+   */
   bool _bugInDartGzip;
 
   SparseList<int> _characters;

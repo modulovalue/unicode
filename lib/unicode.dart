@@ -1,4 +1,6 @@
 // This library was created by the tool.
+// Source: http://www.unicode.org/Public/UNIDATA/UnicodeData.txt
+// Unicode Version: 7.0.0
 
 library unicode;
 
