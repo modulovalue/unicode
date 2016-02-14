@@ -9,19 +9,21 @@ import "package:template_block/template_block.dart";
 
 const String UNICODE_DATA_FILE = "UnicodeData.txt";
 
-const String UNICODE_DATA_URL = "http://www.unicode.org/Public/UNIDATA/UnicodeData.txt";
+const String UNICODE_DATA_URL =
+    "http://www.unicode.org/Public/UNIDATA/UnicodeData.txt";
 
-const String VERSION = "7.0.0";
+const String VERSION = "8.0.0";
 
 void main() {
   var resources = <String, Resource>{};
-  resources[Generator.UNICODE_DATA] = new Resource(filename: UNICODE_DATA_FILE, url: UNICODE_DATA_URL);
+  resources[Generator.UNICODE_DATA] =
+      new Resource(filename: UNICODE_DATA_FILE, url: UNICODE_DATA_URL);
   Future.wait(resources.values.map((r) => r.load())).then((_) {
     var generator = new Generator();
     var data = <String, List<String>>{};
     resources.forEach((k, v) => data[k] = v.data);
     var result = generator.generate(data);
-    var script = "../lib/unicode.dart";
+    var script = "lib/unicode.dart";
     var file = new File(script);
     file.writeAsStringSync(result.join("\n"));
   });
@@ -60,7 +62,8 @@ class Categories {
 
   static const Categories NO = const Categories("No", "OTHER_NUMBER", 15);
 
-  static const Categories PC = const Categories("Pc", "CONNECTOR_PUNCTUATION", 16);
+  static const Categories PC =
+      const Categories("Pc", "CONNECTOR_PUNCTUATION", 16);
 
   static const Categories PD = const Categories("Pd", "DASH_PUNCTUATION", 17);
 
@@ -68,7 +71,8 @@ class Categories {
 
   static const Categories PF = const Categories("Pf", "FINAL_PUNCTUATION", 19);
 
-  static const Categories PI = const Categories("Pi", "INITIAL_PUNCTUATION", 20);
+  static const Categories PI =
+      const Categories("Pi", "INITIAL_PUNCTUATION", 20);
 
   static const Categories PO = const Categories("Po", "OTHER_PUNCTUATION", 21);
 
@@ -84,7 +88,8 @@ class Categories {
 
   static const Categories ZL = const Categories("Zl", "LINE_SEPARATOR", 27);
 
-  static const Categories ZP = const Categories("Zp", "PARAGRAPH_SEPARATOR", 28);
+  static const Categories ZP =
+      const Categories("Zp", "PARAGRAPH_SEPARATOR", 28);
 
   static const Categories ZS = const Categories("Zs", "SPACE_SEPARATOR", 29);
 
@@ -98,63 +103,34 @@ class Categories {
 
   static final Map<String, Categories> values = <String, Categories>{
     CN.abbr: CN,
-
     CC.abbr: CC,
-
     CF.abbr: CF,
-
     CO.abbr: CO,
-
     CS.abbr: CS,
-
     LL.abbr: LL,
-
     LM.abbr: LM,
-
     LO.abbr: LO,
-
     LT.abbr: LT,
-
     LU.abbr: LU,
-
     MC.abbr: MC,
-
     ME.abbr: ME,
-
     MN.abbr: MN,
-
     ND.abbr: ND,
-
     NL.abbr: NL,
-
     NO.abbr: NO,
-
     PC.abbr: PC,
-
     PD.abbr: PD,
-
     PE.abbr: PE,
-
     PF.abbr: PF,
-
     PI.abbr: PI,
-
     PO.abbr: PO,
-
     PS.abbr: PS,
-
     SC.abbr: SC,
-
     SK.abbr: SK,
-
     SM.abbr: SM,
-
     SO.abbr: SO,
-
     ZL.abbr: ZL,
-
     ZP.abbr: ZP,
-
     ZS.abbr: ZS,
   };
 
@@ -211,7 +187,7 @@ SparseBoolList $_GENERATE_BOOL_GROUP(List<int> data) {
   for (var i = 0; i < length; i += 2) {
     var start = data[i + 0];
     var end = data[i + 1];
-    list.addGroup(new GroupedRangeList<bool>(start, end, true));    
+    list.addGroup(new GroupedRangeList<bool>(start, end, true));
   }
 
   list.freeze();
@@ -237,7 +213,7 @@ SparseBoolList $_GENERATE_CATEGORY(int category) {
   static final String _templateMethodGenerateIntGroup = '''
 SparseList<int> $_GENERATE_INT_GROUP(List<int> data, bool isCompressed) {
   if (isCompressed) {
-    data = GZIP.decoder.convert(data); 
+    data = GZIP.decoder.convert(data);
   }
   var list = new SparseList<int>(defaultValue: 0);
   list.length = $UNICODE_LENGTH;
@@ -248,7 +224,7 @@ SparseList<int> $_GENERATE_INT_GROUP(List<int> data, bool isCompressed) {
     start += data[i + 0];
     end += data[i + 1];
     var key = data[i + 2];
-    list.addGroup(new GroupedRangeList<int>(start, end, key));    
+    list.addGroup(new GroupedRangeList<int>(start, end, key));
   }
 
   list.freeze();
@@ -259,37 +235,37 @@ SparseList<int> $_GENERATE_INT_GROUP(List<int> data, bool isCompressed) {
   static final String _templateMethodGenerateIntMapping = '''
 Map<int, int> $_GENERATE_INT_MAPPING(List<int> data, bool isCompressed) {
   if (isCompressed) {
-    data = GZIP.decoder.convert(data); 
+    data = GZIP.decoder.convert(data);
   }
   var map = new HashMap<int, int>();
-  var length = data.length;  
+  var length = data.length;
   var key = 0;
   var value = 0;
   for (var i = 0; i < length; i+= 2) {
     key += data[i + 0];
-    value += data[i + 1];    
-    map[key] = value;    
+    value += data[i + 1];
+    map[key] = value;
   }
-  
+
   return new UnmodifiableMapView<int, int>(map);
 }
 ''';
 
   static final String _templateMethodIsCategory = '''
-bool is{{NAME}}(int character) => {{CHARACTER_SET}}[character];  
+bool is{{NAME}}(int character) => {{CHARACTER_SET}}[character];
 ''';
 
   static final String _templateMethodToCase = '''
-String $_TO_CASE(String string, Map<int, int> mapping) {  
+String $_TO_CASE(String string, Map<int, int> mapping) {
   var runes = toRunes(string);
   var length = runes.length;
-  for (var i = 0; i < length; i++) {    
+  for (var i = 0; i < length; i++) {
     var character = mapping[runes[i]];
     if (character != null) {
       runes[i] = character;
-    }    
+    }
   }
-  return new String.fromCharCodes(runes); 
+  return new String.fromCharCodes(runes);
 }
 ''';
 
@@ -427,7 +403,8 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT_GROUP({{DATA}}, {{IS_COMRESSED}}
       var code = character.code;
       var category = Categories.values[character.category];
       if (category == null) {
-        throw new StateError("Unknown character category: ${character.category}");
+        throw new StateError(
+            "Unknown character category: ${character.category}");
       }
 
       _categories[category][character.code] = true;
@@ -451,7 +428,8 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT_GROUP({{DATA}}, {{IS_COMRESSED}}
     for (var category in _categories.keys) {
       var characters = _categories[category];
       for (var group in characters.groups) {
-        var group2 = new GroupedRangeList<int>(group.start, group.end, category.id);
+        var group2 =
+            new GroupedRangeList<int>(group.start, group.end, category.id);
         _characters.addGroup(group2);
       }
     }
