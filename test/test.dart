@@ -1,12 +1,14 @@
 import "package:unicode/unicode.dart" as unicode;
-import "package:unittest/unittest.dart";
+import "package:test/test.dart";
 
 void main() {
-  testCharacterSets();
-  testIsXXX();
-  testSimpleCasing();
-  testToCase();
-  testUnassigned();
+  test("Unicode", () {
+    testCharacterSets();
+    testIsXXX();
+    testSimpleCasing();
+    testToCase();
+    testUnassigned();
+  });
 }
 
 void testCharacterSets() {
