@@ -3,4 +3,4 @@ unicode
 
 Unicode characters library auto generated from http://www.unicode.org.
 
-Unicode Version 8.0.0
+Unicode Version 12.0.0
