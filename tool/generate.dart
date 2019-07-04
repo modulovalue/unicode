@@ -149,8 +149,8 @@ class Character {
 
   int lowercase;
 
-  Character(this.data) {
-    code = int.parse(data[0], radix: 16);
+  Character(this.code, this.data) {
+    //code = int.parse(data[0], radix: 16);
     category = data[2];
     if (data[12].isNotEmpty) {
       uppercase = int.parse(data[12], radix: 16);
@@ -695,12 +695,38 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT_GROUP({{DATA}}, {{IS_COMRESSED}}
   }
 
   List<Character> _parseUnicodeData(List<String> lines) {
+    bool isRangeStart(List<String> parts) {
+      var name = parts[1];
+      if (name.startsWith('<') && name.endsWith('>')) {
+        name = name.substring(1, name.length - 1);
+        var parts2 = name.split(',');
+        if (parts2.length == 2) {
+          if (parts2[1].trim().toLowerCase() == 'first') {
+            return true;
+          }
+        }
+      }
+
+      return false;
+    }
+
     var characters = List<Character>(UNICODE_LENGTH);
-    for (var line in lines) {
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i];
       var parts = line.split(";");
       var index = int.parse(parts[0], radix: 16);
-      var character = Character(parts);
-      characters[index] = character;
+      var count = 1;
+      if (isRangeStart(parts)) {
+        var line2 = lines[++i];
+        var parts2 = line2.split(";");
+        var index2 = int.parse(parts2[0], radix: 16);
+        count = index2 - index + 1;
+      }
+
+      for (var j = index; j < index + count; j++) {        
+        var character = Character(j, parts);
+        characters[j] = character;       
+      }
     }
 
     return characters;

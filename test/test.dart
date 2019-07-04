@@ -40,6 +40,16 @@ void testIsXXX() {
   character = unicode.toRune("я"); // я
   result = unicode.isLowercaseLetter(character);
   expect(result, true, reason: subject);
+  //
+  subject = "isOtherLetter";
+  character = 0x3400;
+  result = unicode.isOtherLetter(character);
+  expect(result, true, reason: subject);
+  //
+  subject = "isOtherLetter";
+  character = 0x4db5;
+  result = unicode.isOtherLetter(character);
+  expect(result, true, reason: subject);
 }
 
 void testSimpleCasing() {
