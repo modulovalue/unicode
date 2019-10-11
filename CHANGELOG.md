@@ -1,3 +1,8 @@
+## 0.2.2
+
+- Added example
+- Added constants with lowercase names
+
 ## 0.2.1
 
 - Fixed bug in generator with parsing the ranges in `UnicodeData.txt`

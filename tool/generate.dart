@@ -29,7 +29,7 @@ const String UNICODE_DATA_FILE = "UnicodeData.txt";
 const String UNICODE_DATA_URL =
     "http://www.unicode.org/Public/UNIDATA/UnicodeData.txt";
 
-const String VERSION = "12.0.0";
+const String VERSION = "12.1.0";
 
 class Categories {
   static const Categories CN = Categories("Cn", "NOT_ASSIGNED", 0);
@@ -210,12 +210,12 @@ library {{NAME}};
 
   static final String _templateMethodGenerateBoolGroup = '''
 SparseBoolList $_GENERATE_BOOL_GROUP(List<int> data) {
-  var list = SparseBoolList();
+  final list = SparseBoolList();
   list.length = $UNICODE_LENGTH;
-  var length = data.length;
+  final length = data.length;
   for (var i = 0; i < length; i += 2) {
-    var start = data[i + 0];
-    var end = data[i + 1];
+    final start = data[i + 0];
+    final end = data[i + 1];
     list.addGroup(GroupedRangeList<bool>(start, end, true));
   }
 
@@ -226,7 +226,7 @@ SparseBoolList $_GENERATE_BOOL_GROUP(List<int> data) {
 
   static final String _templateMethodGenerateCategory = '''
 SparseBoolList $_GENERATE_CATEGORY(int category) {
-  var list = SparseBoolList();
+  final list = SparseBoolList();
   list.length = $UNICODE_LENGTH;
   for (var group in $_GENERAL_CATEGORIES.groups) {
     if (group.key == category) {
@@ -246,13 +246,13 @@ SparseList<int> $_GENERATE_INT_GROUP(List<int> data, bool isCompressed) {
   }
   var list = SparseList<int>(defaultValue: 0);
   list.length = $UNICODE_LENGTH;
-  var length = data.length;
+  final length = data.length;
   var start = 0;
   var end = 0;
   for (var i = 0; i < length; i+= 3) {
     start += data[i + 0];
     end += data[i + 1];
-    var key = data[i + 2];
+    final key = data[i + 2];
     list.addGroup(GroupedRangeList<int>(start, end, key));
   }
 
@@ -266,8 +266,8 @@ Map<int, int> $_GENERATE_INT_MAPPING(List<int> data, bool isCompressed) {
   if (isCompressed) {
     data = gzip.decoder.convert(data);
   }
-  var map = HashMap<int, int>();
-  var length = data.length;
+  final map = HashMap<int, int>();
+  final length = data.length;
   var key = 0;
   var value = 0;
   for (var i = 0; i < length; i+= 2) {
@@ -286,8 +286,8 @@ bool is{{NAME}}(int character) => {{CHARACTER_SET}}[character];
 
   static final String _templateMethodToCase = '''
 String $_TO_CASE(String string, Map<int, int> mapping) {
-  var runes = toRunes(string);
-  var length = runes.length;
+  final runes = toRunes(string);
+  final length = runes.length;
   for (var i = 0; i < length; i++) {
     var character = mapping[runes[i]];
     if (character != null) {
@@ -304,18 +304,18 @@ int $_TO_RUNE(String string) {
     throw ArgumentError("string: \$string");
   }
 
-  var length = string.length;
+  final length = string.length;
   if (length == 0) {
     throw StateError("An empty string contains no elements.");
   }
 
-  var start = string.codeUnitAt(0);
+  final start = string.codeUnitAt(0);
   if (length == 1) {
     return start;
   }
 
   if ((start & 0xFC00) == 0xD800) {
-    var end = string.codeUnitAt(1);
+    final end = string.codeUnitAt(1);
     if ((end & 0xFC00) == 0xDC00) {
       return (0x10000 + ((start & 0x3FF) << 10) + (end & 0x3FF));
     }
@@ -331,20 +331,20 @@ List<int> $_TO_RUNES(String string) {
     throw ArgumentError("string: \$string");
   }
 
-  var length = string.length;
+  final length = string.length;
   if (length == 0) {
     return const <int>[];
   }
 
-  var runes = <int>[];
+  final runes = <int>[];
   runes.length = length;
   var i = 0;
   var pos = 0;
   for ( ; i < length; pos++) {
-    var start = string.codeUnitAt(i);
+    final start = string.codeUnitAt(i);
     i++;
     if ((start & 0xFC00) == 0xD800 && i < length) {
-      var end = string.codeUnitAt(i);
+      final end = string.codeUnitAt(i);
       if ((end & 0xFC00) == 0xDC00) {
         runes[pos] = (0x10000 + ((start & 0x3FF) << 10) + (end & 0x3FF));
         i++;
@@ -373,17 +373,11 @@ final SparseBoolList {{NAME}} = $_GENERATE_CATEGORY({{ID}});
 final Map<int, int> {{NAME}} = $_GENERATE_INT_MAPPING({{DATA}}, {{IS_COMRESSED}});
 ''';
 
-  static final String _templateSparseListBool = '''
-final SparseBoolList {{NAME}} = $_GENERATE_BOOL_GROUP({{DATA}});
-''';
-
   static final String _templateSparseListInt = '''
 final SparseList<int> {{NAME}} = $_GENERATE_INT_GROUP({{DATA}}, {{IS_COMRESSED}});
 ''';
 
-  /**
-   * This bug present in Dart VM since 8 Sep 2014
-   */
+  /// This bug present in Dart VM since 8 Sep 2014
   bool _bugInDartGzip;
 
   SparseList<int> _characters;
@@ -405,7 +399,7 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT_GROUP({{DATA}}, {{IS_COMRESSED}}
     _constants = <List<String>>[];
     _methods = <List<String>>[];
     _variables = <List<String>>[];
-    var characters = _parseUnicodeData(data[Generator.UNICODE_DATA]);
+    final characters = _parseUnicodeData(data[Generator.UNICODE_DATA]);
     _build(characters);
     _generateConstants();
     _generateVariables();
@@ -539,6 +533,8 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT_GROUP({{DATA}}, {{IS_COMRESSED}}
       var name = category.name;
       var id = category.id;
       strings.add("const int $name = $id;");
+      final name2 = camelize(name, true);
+      strings.add("const int $name2 = $id;");
     }
 
     strings.add("");
@@ -723,9 +719,9 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT_GROUP({{DATA}}, {{IS_COMRESSED}}
         count = index2 - index + 1;
       }
 
-      for (var j = index; j < index + count; j++) {        
+      for (var j = index; j < index + count; j++) {
         var character = Character(j, parts);
-        characters[j] = character;       
+        characters[j] = character;
       }
     }
 

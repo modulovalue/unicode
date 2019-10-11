@@ -93,13 +93,13 @@ void testToCase() {
   string = "Привет, Андрей!";
   measure("String.toUpperCase()", () {
     for (var i = 0; i < count; i++) {
-      var result = string.toUpperCase();
+      string.toUpperCase();
     }
   });
 
   measure("unicode.toUppercase(string)", () {
     for (var i = 0; i < count; i++) {
-      var result = unicode.toLowercase(string);
+      unicode.toLowercase(string);
     }
   });
 }
@@ -112,7 +112,7 @@ void testUnassigned() {
 }
 
 void measure(String msg, f()) {
-  var sw = new Stopwatch();
+  var sw = Stopwatch();
   sw.start();
   f();
   sw.stop();

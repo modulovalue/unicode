@@ -155,10 +155,10 @@ final List<int> _ascii = <int>[
 
 String camelize(String string, [bool lower = false]) {
   if (string == null) {
-    throw new ArgumentError("string: $string");
+    throw ArgumentError("string: $string");
   }
 
-  if (string.length == 0) {
+  if (string.isEmpty) {
     return string;
   }
 
