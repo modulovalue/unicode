@@ -1,13 +1,13 @@
 library unicode.tool.generator;
 
-import "dart:async";
-import "dart:io";
+import 'dart:async';
+import 'dart:io';
+
+import 'package:http/http.dart' as http;
+import 'package:lists/lists.dart';
+import 'package:template_block/template_block.dart';
 
 import 'camelize.dart';
-
-import "package:http/http.dart" as http;
-import "package:lists/lists.dart";
-import "package:template_block/template_block.dart";
 
 void main() {
   var resources = <String, Resource>{};
@@ -18,79 +18,79 @@ void main() {
     var data = <String, List<String>>{};
     resources.forEach((k, v) => data[k] = v.data);
     var result = generator.generate(data);
-    var script = "lib/unicode.dart";
+    var script = 'lib/unicode.dart';
     var file = File(script);
-    file.writeAsStringSync(result.join("\n"));
+    file.writeAsStringSync(result.join('\n'));
   });
 }
 
-const String UNICODE_DATA_FILE = "UnicodeData.txt";
+const String UNICODE_DATA_FILE = 'UnicodeData.txt';
 
 const String UNICODE_DATA_URL =
-    "http://www.unicode.org/Public/UNIDATA/UnicodeData.txt";
+    'https://unicode.org/Public/13.0.0/ucd/UnicodeData.txt';
 
-const String VERSION = "12.1.0";
+const String VERSION = '13.0.0';
 
 class Categories {
-  static const Categories CN = Categories("Cn", "NOT_ASSIGNED", 0);
+  static const Categories CN = Categories('Cn', 'NOT_ASSIGNED', 0);
 
-  static const Categories CC = Categories("Cc", "CONTROL", 1);
+  static const Categories CC = Categories('Cc', 'CONTROL', 1);
 
-  static const Categories CF = Categories("Cf", "FORMAT", 2);
+  static const Categories CF = Categories('Cf', 'FORMAT', 2);
 
-  static const Categories CO = Categories("Co", "PRIVATE_USE", 3);
+  static const Categories CO = Categories('Co', 'PRIVATE_USE', 3);
 
-  static const Categories CS = Categories("Cs", "SURROGATE", 4);
+  static const Categories CS = Categories('Cs', 'SURROGATE', 4);
 
-  static const Categories LL = Categories("Ll", "LOWERCASE_LETTER", 5);
+  static const Categories LL = Categories('Ll', 'LOWERCASE_LETTER', 5);
 
-  static const Categories LM = Categories("Lm", "MODIFIER_LETTER", 6);
+  static const Categories LM = Categories('Lm', 'MODIFIER_LETTER', 6);
 
-  static const Categories LO = Categories("Lo", "OTHER_LETTER", 7);
+  static const Categories LO = Categories('Lo', 'OTHER_LETTER', 7);
 
-  static const Categories LT = Categories("Lt", "TITLECASE_LETTER", 8);
+  static const Categories LT = Categories('Lt', 'TITLECASE_LETTER', 8);
 
-  static const Categories LU = Categories("Lu", "UPPERCASE_LETTER", 9);
+  static const Categories LU = Categories('Lu', 'UPPERCASE_LETTER', 9);
 
-  static const Categories MC = Categories("Mc", "SPACING_MARK", 10);
+  static const Categories MC = Categories('Mc', 'SPACING_MARK', 10);
 
-  static const Categories ME = Categories("Me", "ENCOSING_MARK", 11);
+  static const Categories ME = Categories('Me', 'ENCOSING_MARK', 11);
 
-  static const Categories MN = Categories("Mn", "NONSPACING_MARK", 12);
+  static const Categories MN = Categories('Mn', 'NONSPACING_MARK', 12);
 
-  static const Categories ND = Categories("Nd", "DECIMAL_NUMBER", 13);
+  static const Categories ND = Categories('Nd', 'DECIMAL_NUMBER', 13);
 
-  static const Categories NL = Categories("Nl", "LETTER_NUMBER", 14);
+  static const Categories NL = Categories('Nl', 'LETTER_NUMBER', 14);
 
-  static const Categories NO = Categories("No", "OTHER_NUMBER", 15);
+  static const Categories NO = Categories('No', 'OTHER_NUMBER', 15);
 
-  static const Categories PC = Categories("Pc", "CONNECTOR_PUNCTUATION", 16);
+  static const Categories PC = Categories('Pc', 'CONNECTOR_PUNCTUATION', 16);
 
-  static const Categories PD = Categories("Pd", "DASH_PUNCTUATION", 17);
+  static const Categories PD = Categories('Pd', 'DASH_PUNCTUATION', 17);
 
-  static const Categories PE = Categories("Pe", "CLOSE_PUNCTUATION", 18);
+  static const Categories PE = Categories('Pe', 'CLOSE_PUNCTUATION', 18);
 
-  static const Categories PF = Categories("Pf", "FINAL_PUNCTUATION", 19);
+  static const Categories PF = Categories('Pf', 'FINAL_PUNCTUATION', 19);
 
-  static const Categories PI = Categories("Pi", "INITIAL_PUNCTUATION", 20);
+  static const Categories PI = Categories('Pi', 'INITIAL_PUNCTUATION', 20);
 
-  static const Categories PO = Categories("Po", "OTHER_PUNCTUATION", 21);
+  static const Categories PO = Categories('Po', 'OTHER_PUNCTUATION', 21);
 
-  static const Categories PS = Categories("Ps", "OPEN_PUNCTUATION", 22);
+  static const Categories PS = Categories('Ps', 'OPEN_PUNCTUATION', 22);
 
-  static const Categories SC = Categories("Sc", "CURRENCY_SYMBOL", 23);
+  static const Categories SC = Categories('Sc', 'CURRENCY_SYMBOL', 23);
 
-  static const Categories SK = Categories("Sk", "MODIFIER_SYMBOL", 24);
+  static const Categories SK = Categories('Sk', 'MODIFIER_SYMBOL', 24);
 
-  static const Categories SM = Categories("Sm", "MATH_SYMBOL", 25);
+  static const Categories SM = Categories('Sm', 'MATH_SYMBOL', 25);
 
-  static const Categories SO = Categories("So", "OTHER_SYMBOL", 26);
+  static const Categories SO = Categories('So', 'OTHER_SYMBOL', 26);
 
-  static const Categories ZL = Categories("Zl", "LINE_SEPARATOR", 27);
+  static const Categories ZL = Categories('Zl', 'LINE_SEPARATOR', 27);
 
-  static const Categories ZP = Categories("Zp", "PARAGRAPH_SEPARATOR", 28);
+  static const Categories ZP = Categories('Zp', 'PARAGRAPH_SEPARATOR', 28);
 
-  static const Categories ZS = Categories("Zs", "SPACE_SEPARATOR", 29);
+  static const Categories ZS = Categories('Zs', 'SPACE_SEPARATOR', 29);
 
   static final Map<String, Categories> values = <String, Categories>{
     CN.abbr: CN,
@@ -171,29 +171,29 @@ class Generator {
 
   static const int UNICODE_LENGTH = MAX_VALUE + 1;
 
-  static const String UNICODE_DATA = "UNICODE_DATA";
+  static const String UNICODE_DATA = 'UNICODE_DATA';
 
-  static const String _GENERAL_CATEGORIES = "generalCategories";
+  static const String _GENERAL_CATEGORIES = 'generalCategories';
 
-  static const String _GENERATE_BOOL_GROUP = "_generateBoolGroup";
+  static const String _GENERATE_BOOL_GROUP = '_generateBoolGroup';
 
-  static const String _GENERATE_CATEGORY = "_generateCategory";
+  static const String _GENERATE_CATEGORY = '_generateCategory';
 
-  static const String _GENERATE_INT_GROUP = "_generateIntGroup";
+  static const String _GENERATE_INT_GROUP = '_generateIntGroup';
 
-  static const String _GENERATE_INT_MAPPING = "_generateIntMapping";
+  static const String _GENERATE_INT_MAPPING = '_generateIntMapping';
 
-  static const String _LOWERCASE = "lowercase";
+  static const String _LOWERCASE = 'lowercase';
 
-  static const String _TITLECASE = "titlecase";
+  static const String _TITLECASE = 'titlecase';
 
-  static const String _TO_CASE = "_toCase";
+  static const String _TO_CASE = '_toCase';
 
-  static const String _TO_RUNE = "toRune";
+  static const String _TO_RUNE = 'toRune';
 
-  static const String _TO_RUNES = "toRunes";
+  static const String _TO_RUNES = 'toRunes';
 
-  static const String _UPPERCASE = "uppercase";
+  static const String _UPPERCASE = 'uppercase';
 
   static final String _templateLibrary = '''
 // This library was created by the tool.
@@ -301,12 +301,12 @@ String $_TO_CASE(String string, Map<int, int> mapping) {
   static final String _templateMethodToRune = '''
 int $_TO_RUNE(String string) {
   if (string == null) {
-    throw ArgumentError("string: \$string");
+    throw ArgumentError('string: \$string');
   }
 
   final length = string.length;
   if (length == 0) {
-    throw StateError("An empty string contains no elements.");
+    throw StateError('An empty string contains no elements.');
   }
 
   final start = string.codeUnitAt(0);
@@ -328,7 +328,7 @@ int $_TO_RUNE(String string) {
   static final String _templateMethodToRunes = '''
 List<int> $_TO_RUNES(String string) {
   if (string == null) {
-    throw ArgumentError("string: \$string");
+    throw ArgumentError('string: \$string');
   }
 
   final length = string.length;
@@ -404,7 +404,7 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT_GROUP({{DATA}}, {{IS_COMRESSED}}
     _generateConstants();
     _generateVariables();
     _generateMethods();
-    return _generateLibrary("unicode");
+    return _generateLibrary('unicode');
   }
 
   void _build(List<Character> characters) {
@@ -426,7 +426,7 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT_GROUP({{DATA}}, {{IS_COMRESSED}}
       var code = character.code;
       var category = Categories.values[character.category];
       if (category == null) {
-        throw StateError("Unknown character category: ${character.category}");
+        throw StateError('Unknown character category: ${character.category}');
       }
 
       _categories[category][character.code] = true;
@@ -532,25 +532,25 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT_GROUP({{DATA}}, {{IS_COMRESSED}}
     for (var category in Categories.values.values) {
       var name = category.name;
       var id = category.id;
-      strings.add("const int $name = $id;");
+      strings.add('const int $name = $id;');
       final name2 = camelize(name, true);
-      strings.add("const int $name2 = $id;");
+      strings.add('const int $name2 = $id;');
     }
 
-    strings.add("");
+    strings.add('');
     _constants.add(strings);
   }
 
   List<String> _generateLibrary(String name) {
     var block = TemplateBlock(_templateLibrary);
-    block.assign("NAME", name);
-    block.assign("#DIRECTIVES", "import \"dart:collection\";");
-    block.assign("#DIRECTIVES", "import \"dart:io\";");
-    block.assign("#DIRECTIVES", "import \"package:lists/lists.dart\";");
-    block.assign("#DIRECTIVES", "");
-    block.assign("#CONSTANTS", _constants);
-    block.assign("#METHODS", _methods);
-    block.assign("#VARIABLES", _variables);
+    block.assign('NAME', name);
+    block.assign('#DIRECTIVES', 'import \'dart:collection\';');
+    block.assign('#DIRECTIVES', 'import \'dart:io\';');
+    block.assign('#DIRECTIVES', 'import \'package:lists/lists.dart\';');
+    block.assign('#DIRECTIVES', '');
+    block.assign('#CONSTANTS', _constants);
+    block.assign('#METHODS', _methods);
+    block.assign('#VARIABLES', _variables);
     return block.process();
   }
 
@@ -580,8 +580,8 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT_GROUP({{DATA}}, {{IS_COMRESSED}}
     for (var category in categories.values) {
       var block = blockIsCategory.clone();
       var name = camelize(category.name);
-      block.assign("NAME", name);
-      block.assign("CHARACTER_SET", _getCharacterSetName(category));
+      block.assign('NAME', name);
+      block.assign('CHARACTER_SET', _getCharacterSetName(category));
       _methods.add(block.process());
     }
   }
@@ -618,10 +618,10 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT_GROUP({{DATA}}, {{IS_COMRESSED}}
     for (var key in _caseMapping.keys) {
       var mapping = _getSimpleCaseMappingName(key);
       var block1 = block.clone();
-      var name = "to_${key}";
+      var name = 'to_${key}';
       name = camelize(name, true);
-      block1.assign("NAME", name);
-      block1.assign("MAPPING", mapping);
+      block1.assign('NAME', name);
+      block1.assign('MAPPING', mapping);
       _methods.add(block1.process());
     }
   }
@@ -636,9 +636,9 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT_GROUP({{DATA}}, {{IS_COMRESSED}}
     }
 
     var compressed = _compressGroups(data);
-    block.assign("IS_COMRESSED", !_bugInDartGzip);
-    block.assign("DATA", "[${compressed.join(", ")}]");
-    block.assign("NAME", _GENERAL_CATEGORIES);
+    block.assign('IS_COMRESSED', !_bugInDartGzip);
+    block.assign('DATA', '[${compressed.join(', ')}]');
+    block.assign('NAME', _GENERAL_CATEGORIES);
     _variables.add(block.process());
   }
 
@@ -646,8 +646,8 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT_GROUP({{DATA}}, {{IS_COMRESSED}}
     var block = TemplateBlock(_templateCharacterSet);
     for (var category in _categories.keys) {
       var block1 = block.clone();
-      block1.assign("NAME", _getCharacterSetName(category));
-      block1.assign("ID", category.id);
+      block1.assign('NAME', _getCharacterSetName(category));
+      block1.assign('ID', category.id);
       _variables.add(block1.process());
     }
   }
@@ -670,22 +670,22 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT_GROUP({{DATA}}, {{IS_COMRESSED}}
 
       var compressed = _compressMapping(data);
       var block1 = block.clone();
-      block1.assign("IS_COMRESSED", !_bugInDartGzip);
-      block1.assign("DATA", "[${compressed.join(", ")}]");
-      block1.assign("NAME", _getSimpleCaseMappingName(name));
+      block1.assign('IS_COMRESSED', !_bugInDartGzip);
+      block1.assign('DATA', '[${compressed.join(', ')}]');
+      block1.assign('NAME', _getSimpleCaseMappingName(name));
       _variables.add(block1.process());
     }
   }
 
   String _getCharacterSetName(Categories category) {
     var name = category.name;
-    name = "${category.name}_Characters";
+    name = '${category.name}_Characters';
     name = camelize(name, true);
     return name;
   }
 
   String _getSimpleCaseMappingName(String name) {
-    name = "simple_${name}_mapping";
+    name = 'simple_${name}_mapping';
     name = camelize(name, true);
     return name;
   }
@@ -709,12 +709,12 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT_GROUP({{DATA}}, {{IS_COMRESSED}}
     var characters = List<Character>(UNICODE_LENGTH);
     for (var i = 0; i < lines.length; i++) {
       var line = lines[i];
-      var parts = line.split(";");
+      var parts = line.split(';');
       var index = int.parse(parts[0], radix: 16);
       var count = 1;
       if (isRangeStart(parts)) {
         var line2 = lines[++i];
-        var parts2 = line2.split(";");
+        var parts2 = line2.split(';');
         var index2 = int.parse(parts2[0], radix: 16);
         count = index2 - index + 1;
       }
@@ -748,9 +748,9 @@ class Resource {
     }
 
     return http.read(Uri.parse(url)).then((string) {
-      string = string.replaceAll("\r\n", "\n");
-      string = string.replaceAll("\r", "\n");
-      data = string.split("\n");
+      string = string.replaceAll('\r\n', '\n');
+      string = string.replaceAll('\r', '\n');
+      data = string.split('\n');
       if (data.last.isEmpty) {
         data.removeLast();
       }

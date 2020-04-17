@@ -1,13 +1,13 @@
 name: unicode
-version: 0.2.2
+version: 0.2.3
 author: Andrew Mezoni <andrew.mezoni@gmail.com>
 description: Unicode characters library auto generated from http://www.unicode.org.
 homepage: https://github.com/mezoni/unicode
 environment:
   sdk: '>=2.2.0 <3.0.0'
-dependencies:
-  lists: ^0.1.3
-dev_dependencies:
+dependencies:  
+  lists: ^0.1.6
+dev_dependencies:  
   http: 0.11.3+17
   pedantic: ^1.8.0
   template_block: ^0.2.0
