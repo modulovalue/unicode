@@ -1,3 +1,7 @@
+## 0.2.4
+
+- Removed `dart:io` dependency
+
 ## 0.2.3
 
 - Generation fo Unicode 13.0.0

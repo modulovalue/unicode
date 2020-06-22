@@ -133,6 +133,7 @@ class Categories {
 
   const Categories(this.abbr, this.name, this.id);
 
+  @override
   String toString() => name;
 }
 
@@ -240,10 +241,7 @@ SparseBoolList $_GENERATE_CATEGORY(int category) {
 ''';
 
   static final String _templateMethodGenerateIntGroup = '''
-SparseList<int> $_GENERATE_INT_GROUP(List<int> data, bool isCompressed) {
-  if (isCompressed) {
-    data = gzip.decoder.convert(data);
-  }
+SparseList<int> $_GENERATE_INT_GROUP(List<int> data) {  
   var list = SparseList<int>(defaultValue: 0);
   list.length = $UNICODE_LENGTH;
   final length = data.length;
@@ -262,10 +260,7 @@ SparseList<int> $_GENERATE_INT_GROUP(List<int> data, bool isCompressed) {
 ''';
 
   static final String _templateMethodGenerateIntMapping = '''
-Map<int, int> $_GENERATE_INT_MAPPING(List<int> data, bool isCompressed) {
-  if (isCompressed) {
-    data = gzip.decoder.convert(data);
-  }
+Map<int, int> $_GENERATE_INT_MAPPING(List<int> data) {  
   final map = HashMap<int, int>();
   final length = data.length;
   var key = 0;
@@ -370,15 +365,12 @@ final SparseBoolList {{NAME}} = $_GENERATE_CATEGORY({{ID}});
 ''';
 
   static final String _templateMapping = '''
-final Map<int, int> {{NAME}} = $_GENERATE_INT_MAPPING({{DATA}}, {{IS_COMRESSED}});
+final Map<int, int> {{NAME}} = $_GENERATE_INT_MAPPING({{DATA}});
 ''';
 
   static final String _templateSparseListInt = '''
-final SparseList<int> {{NAME}} = $_GENERATE_INT_GROUP({{DATA}}, {{IS_COMRESSED}});
+final SparseList<int> {{NAME}} = $_GENERATE_INT_GROUP({{DATA}});
 ''';
-
-  /// This bug present in Dart VM since 8 Sep 2014
-  bool _bugInDartGzip;
 
   SparseList<int> _characters;
 
@@ -473,22 +465,7 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT_GROUP({{DATA}}, {{IS_COMRESSED}}
       data.add(groups[i + 2]);
     }
 
-    // Compression phase #2
-    var compressed = gzip.encoder.convert(data);
-    var uncompressed = gzip.decoder.convert(compressed);
-    var length = data.length;
-    _bugInDartGzip = false;
-    for (var i = 0; i < length; i++) {
-      if (data[i] != uncompressed[i]) {
-        _bugInDartGzip = true;
-        break;
-      }
-    }
-
-    if (_bugInDartGzip) {
-      compressed = data;
-    }
-
+    var compressed = data;
     return compressed;
   }
 
@@ -508,22 +485,7 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT_GROUP({{DATA}}, {{IS_COMRESSED}}
       data.add(deltaValue);
     }
 
-    // Compression phase #2
-    var compressed = gzip.encoder.convert(data);
-    var uncompressed = gzip.decoder.convert(compressed);
-    var length = data.length;
-    _bugInDartGzip = false;
-    for (var i = 0; i < length; i++) {
-      if (data[i] != uncompressed[i]) {
-        _bugInDartGzip = true;
-        break;
-      }
-    }
-
-    if (_bugInDartGzip) {
-      compressed = data;
-    }
-
+    var compressed = data;
     return compressed;
   }
 
@@ -545,7 +507,6 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT_GROUP({{DATA}}, {{IS_COMRESSED}}
     var block = TemplateBlock(_templateLibrary);
     block.assign('NAME', name);
     block.assign('#DIRECTIVES', 'import \'dart:collection\';');
-    block.assign('#DIRECTIVES', 'import \'dart:io\';');
     block.assign('#DIRECTIVES', 'import \'package:lists/lists.dart\';');
     block.assign('#DIRECTIVES', '');
     block.assign('#CONSTANTS', _constants);
@@ -636,7 +597,6 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT_GROUP({{DATA}}, {{IS_COMRESSED}}
     }
 
     var compressed = _compressGroups(data);
-    block.assign('IS_COMRESSED', !_bugInDartGzip);
     block.assign('DATA', '[${compressed.join(', ')}]');
     block.assign('NAME', _GENERAL_CATEGORIES);
     _variables.add(block.process());
@@ -670,7 +630,6 @@ final SparseList<int> {{NAME}} = $_GENERATE_INT_GROUP({{DATA}}, {{IS_COMRESSED}}
 
       var compressed = _compressMapping(data);
       var block1 = block.clone();
-      block1.assign('IS_COMRESSED', !_bugInDartGzip);
       block1.assign('DATA', '[${compressed.join(', ')}]');
       block1.assign('NAME', _getSimpleCaseMappingName(name));
       _variables.add(block1.process());

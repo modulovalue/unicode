@@ -111,7 +111,7 @@ void testUnassigned() {
   expect(result, unicode.NOT_ASSIGNED, reason: subject);
 }
 
-void measure(String msg, f()) {
+void measure(String msg, Function() f) {
   var sw = Stopwatch();
   sw.start();
   f();

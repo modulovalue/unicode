@@ -155,7 +155,7 @@ final List<int> _ascii = <int>[
 
 String camelize(String string, [bool lower = false]) {
   if (string == null) {
-    throw ArgumentError("string: $string");
+    throw ArgumentError('string: $string');
   }
 
   if (string.isEmpty) {
@@ -167,7 +167,7 @@ String camelize(String string, [bool lower = false]) {
   var length = string.length;
   var position = 0;
   var remove = false;
-  var sb = new StringBuffer();
+  var sb = StringBuffer();
   for (var i = 0; i < length; i++) {
     var s = string[i];
     var c = s.codeUnitAt(0);
