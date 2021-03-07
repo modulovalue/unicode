@@ -4,7 +4,7 @@ author: Andrew Mezoni <andrew.mezoni@gmail.com>
 description: Unicode characters library auto generated from http://www.unicode.org.
 homepage: https://github.com/mezoni/unicode
 environment:
-  sdk: '>=2.12.0-0 <3.0.0'
+  sdk: '>=2.12.0 <3.0.0'
 dependencies:  
   lists: ^1.0.0
 dev_dependencies:  
