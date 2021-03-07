@@ -1,3 +1,5 @@
+// @dart = 2.10
+
 library unicode.tool.generator;
 
 import 'dart:async';
@@ -331,8 +333,7 @@ List<int> $_TO_RUNES(String string) {
     return const <int>[];
   }
 
-  final runes = <int>[];
-  runes.length = length;
+  final runes = List.filled(length, 0);
   var i = 0;
   var pos = 0;
   for ( ; i < length; pos++) {
@@ -351,8 +352,7 @@ List<int> $_TO_RUNES(String string) {
     }
   }
 
-  runes.length = pos;
-  return runes;
+  return runes.sublist(0, pos);  
 }
 ''';
 

@@ -1,3 +1,7 @@
+## 0.3.0
+
+- The source code has been migrated to null safety.
+
 ## 0.2.4
 
 - Removed `dart:io` dependency

@@ -237,8 +237,7 @@ List<int> toRunes(String string) {
     return const <int>[];
   }
 
-  final runes = <int>[];
-  runes.length = length;
+  final runes = List.filled(length, 0);
   var i = 0;
   var pos = 0;
   for ( ; i < length; pos++) {
@@ -257,8 +256,7 @@ List<int> toRunes(String string) {
     }
   }
 
-  runes.length = pos;
-  return runes;
+  return runes.sublist(0, pos);  
 }
 
 SparseBoolList _generateBoolGroup(List<int> data) {
